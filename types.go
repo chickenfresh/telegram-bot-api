@@ -171,6 +171,7 @@ type Message struct {
 	Invoice               *Invoice           `json:"invoice"`                 // optional
 	SuccessfulPayment     *SuccessfulPayment `json:"successful_payment"`      // optional
 	PassportData          *PassportData      `json:"passport_data,omitempty"` // optional
+	ReplyMarkup         *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 }
 
 // Time converts the message timestamp into a Time.
