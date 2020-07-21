@@ -181,11 +181,11 @@ func (m *Message) Time() time.Time {
 
 // IsCommand returns true if message starts with a "bot_command" entity.
 func (m *Message) IsCommand() bool {
-	if m.Entities == nil || len(*m.Entities) == 0 {
+	if m.Entities == nil || len(m.Entities) == 0 {
 		return false
 	}
 
-	entity := (*m.Entities)[0]
+	entity := m.Entities[0]
 	return entity.Offset == 0 && entity.IsCommand()
 }
 
@@ -215,7 +215,7 @@ func (m *Message) CommandWithAt() string {
 	}
 
 	// IsCommand() checks that the message begins with a bot_command entity
-	entity := (*m.Entities)[0]
+	entity := m.Entities[0]
 	return m.Text[1:entity.Length]
 }
 
@@ -234,7 +234,7 @@ func (m *Message) CommandArguments() string {
 	}
 
 	// IsCommand() checks that the message begins with a bot_command entity
-	entity := (*m.Entities)[0]
+	entity := m.Entities[0]
 	if len(m.Text) == entity.Length {
 		return "" // The command makes up the whole message
 	}
