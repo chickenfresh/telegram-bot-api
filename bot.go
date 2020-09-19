@@ -71,8 +71,8 @@ func NewBotAPIWithClient(token, apiEndpoint string, client *http.Client) (*BotAP
 	return bot, nil
 }
 
-func (b *BotAPI) SetAPIEndpoint(apiEndpoint string) {
-	b.apiEndpoint = apiEndpoint
+func (bot *BotAPI) SetAPIEndpoint(apiEndpoint string) {
+	bot.apiEndpoint = apiEndpoint
 }
 
 // MakeRequest makes a request to a specific endpoint with our token.
@@ -371,7 +371,7 @@ func (bot *BotAPI) sendChattable(config Chattable) (Message, error) {
 // Offset and Limit are optional.
 func (bot *BotAPI) GetUserProfilePhotos(config UserProfilePhotosConfig) (UserProfilePhotos, error) {
 	v := url.Values{}
-	v.Add("user_id", strconv.Itoa(config.UserID))
+	v.Add("user_id", fmt.Sprintf("%d", config.UserID))
 	if config.Offset != 0 {
 		v.Add("offset", strconv.Itoa(config.Offset))
 	}
@@ -385,7 +385,7 @@ func (bot *BotAPI) GetUserProfilePhotos(config UserProfilePhotosConfig) (UserPro
 	}
 
 	var profilePhotos UserProfilePhotos
-	json.Unmarshal(resp.Result, &profilePhotos)
+	_ = json.Unmarshal(resp.Result, &profilePhotos)
 
 	bot.debugLog("GetUserProfilePhoto", v, profilePhotos)
 
@@ -607,7 +607,7 @@ func (bot *BotAPI) KickChatMember(config KickChatMemberConfig) (APIResponse, err
 	} else {
 		v.Add("chat_id", config.SuperGroupUsername)
 	}
-	v.Add("user_id", strconv.Itoa(config.UserID))
+	v.Add("user_id", fmt.Sprintf("%d", config.UserID))
 
 	if config.UntilDate != 0 {
 		v.Add("until_date", strconv.FormatInt(config.UntilDate, 10))
@@ -714,7 +714,7 @@ func (bot *BotAPI) GetChatMember(config ChatConfigWithUser) (ChatMember, error) 
 	} else {
 		v.Add("chat_id", config.SuperGroupUsername)
 	}
-	v.Add("user_id", strconv.Itoa(config.UserID))
+	v.Add("user_id", fmt.Sprintf("%d", config.UserID))
 
 	resp, err := bot.MakeRequest("getChatMember", v)
 	if err != nil {
@@ -741,7 +741,7 @@ func (bot *BotAPI) UnbanChatMember(config ChatMemberConfig) (APIResponse, error)
 	} else {
 		v.Add("chat_id", strconv.FormatInt(config.ChatID, 10))
 	}
-	v.Add("user_id", strconv.Itoa(config.UserID))
+	v.Add("user_id", fmt.Sprintf("%d", config.UserID))
 
 	bot.debugLog("unbanChatMember", v, nil)
 
@@ -762,7 +762,7 @@ func (bot *BotAPI) RestrictChatMember(config RestrictChatMemberConfig) (APIRespo
 	} else {
 		v.Add("chat_id", strconv.FormatInt(config.ChatID, 10))
 	}
-	v.Add("user_id", strconv.Itoa(config.UserID))
+	v.Add("user_id", fmt.Sprintf("%d", config.UserID))
 
 	if config.CanSendMessages != nil {
 		v.Add("can_send_messages", strconv.FormatBool(*config.CanSendMessages))
@@ -796,7 +796,7 @@ func (bot *BotAPI) PromoteChatMember(config PromoteChatMemberConfig) (APIRespons
 	} else {
 		v.Add("chat_id", strconv.FormatInt(config.ChatID, 10))
 	}
-	v.Add("user_id", strconv.Itoa(config.UserID))
+	v.Add("user_id", fmt.Sprintf("%d", config.UserID))
 
 	if config.CanChangeInfo != nil {
 		v.Add("can_change_info", strconv.FormatBool(*config.CanChangeInfo))

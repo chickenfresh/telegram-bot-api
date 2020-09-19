@@ -52,7 +52,7 @@ func (ch UpdatesChannel) Clear() {
 
 // User is a user on Telegram.
 type User struct {
-	ID           int    `json:"id"`
+	ID           int64    `json:"id"`
 	FirstName    string `json:"first_name"`
 	LastName     string `json:"last_name"`     // optional
 	UserName     string `json:"username"`      // optional
@@ -97,11 +97,11 @@ type Chat struct {
 	UserName            string     `json:"username"`                       // optional
 	FirstName           string     `json:"first_name"`                     // optional
 	LastName            string     `json:"last_name"`                      // optional
-	AllMembersAreAdmins bool       `json:"all_members_are_administrators"` // optional
-	Photo               *ChatPhoto `json:"photo"`
+	AllMembersAreAdmins bool       `json:"all_members_are_administrators,omitempty"` // optional
+	Photo               *ChatPhoto `json:"photo,omitempty"`
 	Description         string     `json:"description,omitempty"` // optional
 	InviteLink          string     `json:"invite_link,omitempty"` // optional
-	PinnedMessage       *Message   `json:"pinned_message"`        // optional
+	PinnedMessage       *Message   `json:"pinned_message,omitempty"`        // optional
 }
 
 // IsPrivate returns if the Chat is a private conversation.
@@ -406,7 +406,7 @@ type Contact struct {
 	PhoneNumber string `json:"phone_number"`
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"` // optional
-	UserID      int    `json:"user_id"`   // optional
+	UserID      int64    `json:"user_id"`   // optional
 }
 
 // Location contains information about a place.
