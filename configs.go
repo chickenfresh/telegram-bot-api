@@ -195,7 +195,7 @@ type MessageConfig struct {
 	Text                  string
 	ParseMode             string
 	DisableWebPagePreview bool
-	Entities []MessageEntity
+	Entities              []MessageEntity
 }
 
 type CopyMessageConfig struct {
@@ -296,6 +296,7 @@ func (config ForwardConfig) method() string {
 // PhotoConfig contains information about a SendPhoto request.
 type PhotoConfig struct {
 	BaseFile
+	Entities  []MessageEntity
 	Caption   string
 	ParseMode string
 }
@@ -310,7 +311,13 @@ func (config PhotoConfig) params() (map[string]string, error) {
 			params["parse_mode"] = config.ParseMode
 		}
 	}
-
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return params, err
+		}
+		params["caption_entities"] = string(data)
+	}
 	return params, nil
 }
 
@@ -501,6 +508,7 @@ func (config StickerConfig) method() string {
 type VideoConfig struct {
 	BaseFile
 	Duration  int
+	Entities []MessageEntity
 	Caption   string
 	ParseMode string
 }
@@ -522,7 +530,13 @@ func (config VideoConfig) values() (url.Values, error) {
 			v.Add("parse_mode", config.ParseMode)
 		}
 	}
-
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return v, err
+		}
+		v.Add("caption_entities",  string(data))
+	}
 	return v, nil
 }
 
@@ -553,6 +567,7 @@ func (config VideoConfig) method() string {
 // AnimationConfig contains information about a SendAnimation request.
 type AnimationConfig struct {
 	BaseFile
+	Entities []MessageEntity
 	Duration  int
 	Caption   string
 	ParseMode string
@@ -575,7 +590,13 @@ func (config AnimationConfig) values() (url.Values, error) {
 			v.Add("parse_mode", config.ParseMode)
 		}
 	}
-
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return v, err
+		}
+		v.Add("caption_entities", string(data))
+	}
 	return v, nil
 }
 
