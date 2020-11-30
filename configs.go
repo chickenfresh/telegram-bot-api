@@ -195,6 +195,7 @@ type MessageConfig struct {
 	Text                  string
 	ParseMode             string
 	DisableWebPagePreview bool
+	Entities []MessageEntity
 }
 
 type CopyMessageConfig struct {
@@ -253,12 +254,18 @@ func (config MessageConfig) values() (url.Values, error) {
 	if config.ParseMode != "" {
 		v.Add("parse_mode", config.ParseMode)
 	}
-
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return v, err
+		}
+		v.Add("entities", string(data))
+	}
 	return v, nil
 }
 
 // method returns Telegram API method name for sending Message.
-func (config MessageConfig) method() string {
+func (_ MessageConfig) method() string {
 	return "sendMessage"
 }
 
