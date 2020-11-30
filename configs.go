@@ -203,6 +203,7 @@ type CopyMessageConfig struct {
 	MessageID           int
 	NewCaption          *string
 	ParseMode           *string
+	Entities            []MessageEntity
 	DisableNotification bool
 	ReplyMarkup         interface{}
 }
@@ -226,6 +227,13 @@ func (config CopyMessageConfig) values() (url.Values, error) {
 			return v, err
 		}
 		v.Add("reply_markup", string(data))
+	}
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return v, err
+		}
+		v.Add("caption_entities", string(data))
 	}
 	v.Add("disable_notification", strconv.FormatBool(config.DisableNotification))
 
