@@ -197,6 +197,45 @@ type MessageConfig struct {
 	DisableWebPagePreview bool
 }
 
+type CopyMessageConfig struct {
+	ChatID              int64
+	FromChatID          int64
+	MessageID           int
+	NewCaption          *string
+	ParseMode           *string
+	DisableNotification bool
+	ReplyMarkup         interface{}
+}
+
+func (config CopyMessageConfig) values() (url.Values, error) {
+	v := url.Values{}
+	v.Add("chat_id", strconv.FormatInt(config.ChatID, 10))
+	v.Add("from_chat_id", strconv.FormatInt(config.FromChatID, 10))
+	v.Add("message_id", strconv.Itoa(config.MessageID))
+	if config.NewCaption != nil {
+		v.Add("caption", *config.NewCaption)
+	}
+	if config.ParseMode != nil {
+		v.Add("parse_mode", *config.ParseMode)
+	} else {
+		v.Add("parse_mode", ModeHTML)
+	}
+	if config.ReplyMarkup != nil {
+		data, err := json.Marshal(config.ReplyMarkup)
+		if err != nil {
+			return v, err
+		}
+		v.Add("reply_markup", string(data))
+	}
+	v.Add("disable_notification", strconv.FormatBool(config.DisableNotification))
+
+	return v, nil
+}
+
+func (_ CopyMessageConfig) method() string {
+	return "copyMessage"
+}
+
 // values returns a url.Values representation of MessageConfig.
 func (config MessageConfig) values() (url.Values, error) {
 	v, err := config.BaseChat.values()

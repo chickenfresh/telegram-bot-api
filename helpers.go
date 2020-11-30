@@ -4,6 +4,10 @@ import (
 	"net/url"
 )
 
+func NewCopyMessage(chatID, fromChatID int64, messageID int) CopyMessageConfig {
+	return CopyMessageConfig{ChatID: chatID, FromChatID: fromChatID, MessageID: messageID}
+}
+
 // NewMessage creates a new Message.
 //
 // chatID is where to send it, text is the message text.
