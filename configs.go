@@ -218,8 +218,6 @@ func (config CopyMessageConfig) values() (url.Values, error) {
 	}
 	if config.ParseMode != nil {
 		v.Add("parse_mode", *config.ParseMode)
-	} else {
-		v.Add("parse_mode", ModeHTML)
 	}
 	if config.ReplyMarkup != nil {
 		data, err := json.Marshal(config.ReplyMarkup)
