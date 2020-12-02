@@ -318,13 +318,6 @@ func (config PhotoConfig) params() (map[string]string, error) {
 		}
 		params["caption_entities"] = string(data)
 	}
-	if config.ReplyMarkup != nil {
-		data, err := json.Marshal(config.ReplyMarkup)
-		if err != nil {
-			return params, err
-		}
-		params["reply_markup"] = string(data)
-	}
 	return params, nil
 }
 
@@ -348,13 +341,6 @@ func (config PhotoConfig) values() (url.Values, error) {
 			return v, err
 		}
 		v.Add("caption_entities", string(data))
-	}
-	if config.ReplyMarkup != nil {
-		data, err := json.Marshal(config.ReplyMarkup)
-		if err != nil {
-			return v, err
-		}
-		v.Set("reply_markup", string(data))
 	}
 	return v, nil
 }
