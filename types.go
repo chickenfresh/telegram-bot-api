@@ -37,7 +37,7 @@ type Update struct {
 	CallbackQuery      *CallbackQuery      `json:"callback_query,omitempty"`
 	ShippingQuery      *ShippingQuery      `json:"shipping_query,omitempty"`
 	PreCheckoutQuery   *PreCheckoutQuery   `json:"pre_checkout_query,omitempty"`
-	Raw json.RawMessage
+	Raw                json.RawMessage
 }
 
 // UpdatesChannel is the channel for getting updates.
@@ -52,7 +52,7 @@ func (ch UpdatesChannel) Clear() {
 
 // User is a user on Telegram.
 type User struct {
-	ID           int64    `json:"id"`
+	ID           int64  `json:"id"`
 	FirstName    string `json:"first_name"`
 	LastName     string `json:"last_name"`     // optional
 	UserName     string `json:"username"`      // optional
@@ -93,15 +93,15 @@ type ChatPhoto struct {
 type Chat struct {
 	ID                  int64      `json:"id"`
 	Type                string     `json:"type"`
-	Title               string     `json:"title"`                          // optional
-	UserName            string     `json:"username"`                       // optional
-	FirstName           string     `json:"first_name"`                     // optional
-	LastName            string     `json:"last_name"`                      // optional
+	Title               string     `json:"title"`                                    // optional
+	UserName            string     `json:"username"`                                 // optional
+	FirstName           string     `json:"first_name"`                               // optional
+	LastName            string     `json:"last_name"`                                // optional
 	AllMembersAreAdmins bool       `json:"all_members_are_administrators,omitempty"` // optional
 	Photo               *ChatPhoto `json:"photo,omitempty"`
-	Description         string     `json:"description,omitempty"` // optional
-	InviteLink          string     `json:"invite_link,omitempty"` // optional
-	PinnedMessage       *Message   `json:"pinned_message,omitempty"`        // optional
+	Description         string     `json:"description,omitempty"`    // optional
+	InviteLink          string     `json:"invite_link,omitempty"`    // optional
+	PinnedMessage       *Message   `json:"pinned_message,omitempty"` // optional
 }
 
 // IsPrivate returns if the Chat is a private conversation.
@@ -406,7 +406,7 @@ type Contact struct {
 	PhoneNumber string `json:"phone_number"`
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"` // optional
-	UserID      int64    `json:"user_id"`   // optional
+	UserID      int64  `json:"user_id"`   // optional
 }
 
 // Location contains information about a place.
@@ -591,10 +591,11 @@ func (info WebhookInfo) IsSet() bool {
 
 // InputMediaPhoto contains a photo for displaying as part of a media group.
 type InputMediaPhoto struct {
-	Type      string `json:"type"`
-	Media     string `json:"media"`
-	Caption   string `json:"caption"`
-	ParseMode string `json:"parse_mode"`
+	Type            string          `json:"type"`
+	Media           string          `json:"media"`
+	Caption         string          `json:"caption"`
+	CaptionEntities []MessageEntity `json:"caption_entities,omitempty"`
+	ParseMode       string          `json:"parse_mode"`
 }
 
 // InputMediaVideo contains a video for displaying as part of a media group.
@@ -602,12 +603,13 @@ type InputMediaVideo struct {
 	Type  string `json:"type"`
 	Media string `json:"media"`
 	// thumb intentionally missing as it is not currently compatible
-	Caption           string `json:"caption"`
-	ParseMode         string `json:"parse_mode"`
-	Width             int    `json:"width"`
-	Height            int    `json:"height"`
-	Duration          int    `json:"duration"`
-	SupportsStreaming bool   `json:"supports_streaming"`
+	Caption           string          `json:"caption"`
+	CaptionEntities   []MessageEntity `json:"caption_entities,omitempty"`
+	ParseMode         string          `json:"parse_mode"`
+	Width             int             `json:"width"`
+	Height            int             `json:"height"`
+	Duration          int             `json:"duration"`
+	SupportsStreaming bool            `json:"supports_streaming"`
 }
 
 // InlineQuery is a Query from Telegram for an inline request.
