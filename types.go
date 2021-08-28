@@ -37,6 +37,7 @@ type Update struct {
 	CallbackQuery      *CallbackQuery      `json:"callback_query,omitempty"`
 	ShippingQuery      *ShippingQuery      `json:"shipping_query,omitempty"`
 	PreCheckoutQuery   *PreCheckoutQuery   `json:"pre_checkout_query,omitempty"`
+	MyChatMember       *MyChatMember       `json:"my_chat_member,omitempty"`
 	Raw                json.RawMessage
 }
 
@@ -987,4 +988,13 @@ type Error struct {
 
 func (e Error) Error() string {
 	return e.Message
+}
+
+// PreCheckoutQuery contains information about an incoming pre-checkout query.
+type MyChatMember struct {
+	Chat          *Chat       `json:"chat"`
+	From          *User       `json:"from"`
+	Date          int64       `json:"date"`
+	OldChatMember *ChatMember `json:"old_chat_member"`
+	NewChatMember *ChatMember `json:"new_chat_member"`
 }
