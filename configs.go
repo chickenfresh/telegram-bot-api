@@ -358,6 +358,7 @@ func (config PhotoConfig) method() string {
 // AudioConfig contains information about a SendAudio request.
 type AudioConfig struct {
 	BaseFile
+	Entities  []MessageEntity
 	Caption   string
 	ParseMode string
 	Duration  int
@@ -389,7 +390,13 @@ func (config AudioConfig) values() (url.Values, error) {
 			v.Add("parse_mode", config.ParseMode)
 		}
 	}
-
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return v, err
+		}
+		v.Add("caption_entities", string(data))
+	}
 	return v, nil
 }
 
@@ -514,7 +521,7 @@ func (config StickerConfig) method() string {
 type VideoConfig struct {
 	BaseFile
 	Duration  int
-	Entities []MessageEntity
+	Entities  []MessageEntity
 	Caption   string
 	ParseMode string
 }
@@ -541,7 +548,7 @@ func (config VideoConfig) values() (url.Values, error) {
 		if err != nil {
 			return v, err
 		}
-		v.Add("caption_entities",  string(data))
+		v.Add("caption_entities", string(data))
 	}
 	return v, nil
 }
@@ -573,7 +580,7 @@ func (config VideoConfig) method() string {
 // AnimationConfig contains information about a SendAnimation request.
 type AnimationConfig struct {
 	BaseFile
-	Entities []MessageEntity
+	Entities  []MessageEntity
 	Duration  int
 	Caption   string
 	ParseMode string
