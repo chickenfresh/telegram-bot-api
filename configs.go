@@ -691,6 +691,7 @@ func (config VideoNoteConfig) method() string {
 // VoiceConfig contains information about a SendVoice request.
 type VoiceConfig struct {
 	BaseFile
+	Entities  []MessageEntity
 	Caption   string
 	ParseMode string
 	Duration  int
@@ -713,7 +714,13 @@ func (config VoiceConfig) values() (url.Values, error) {
 			v.Add("parse_mode", config.ParseMode)
 		}
 	}
-
+	if config.Entities != nil && len(config.Entities) > 0 {
+		data, err := json.Marshal(config.Entities)
+		if err != nil {
+			return v, err
+		}
+		v.Add("caption_entities", string(data))
+	}
 	return v, nil
 }
 
