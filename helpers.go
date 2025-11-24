@@ -748,6 +748,22 @@ func NewInlineKeyboardButtonSwitch(text, sw string) InlineKeyboardButton {
 	}
 }
 
+// NewInlineKeyboardButtonWebApp creates an inline keyboard button with
+// text which opens a Web App.
+func NewInlineKeyboardButtonWebApp(text string, webapp WebAppInfo) InlineKeyboardButton {
+	return InlineKeyboardButton{
+		Text:   text,
+		WebApp: &webapp,
+	}
+}
+
+// NewMenuButton creates a new menu button with the specified type.
+func NewMenuButton(buttonType string) MenuButton {
+	return MenuButton{
+		Type: buttonType,
+	}
+}
+
 // NewInlineKeyboardRow creates an inline keyboard row with buttons.
 func NewInlineKeyboardRow(buttons ...InlineKeyboardButton) []InlineKeyboardButton {
 	var row []InlineKeyboardButton

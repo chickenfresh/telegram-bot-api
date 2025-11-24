@@ -1002,3 +1002,15 @@ func (bot *BotAPI) GetStickerSet(config GetStickerSetConfig) (StickerSet, error)
 	}
 	return stickerSet, nil
 }
+
+// SetChatMenuButton sets the bot's menu button in a private chat.
+func (bot *BotAPI) SetChatMenuButton(config SetChatMenuButtonConfig) (APIResponse, error) {
+	v, err := config.values()
+	if err != nil {
+		return APIResponse{}, err
+	}
+
+	bot.debugLog(config.method(), v, nil)
+
+	return bot.MakeRequest(config.method(), v)
+}

@@ -1,0 +1,77 @@
+{
+  "update_id": 930956524,
+  "callback_query": {
+    "id": "4272642150491702980",
+    "from": {
+      "id": 994802022,
+      "first_name": "Ahmet",
+      "last_name": "Isgenderow",
+      "username": "",
+      "language_code": "tr",
+      "is_bot": false
+    },
+    "message": {
+      "message_id": 58501897,
+      "from": {
+        "id": 267788204,
+        "first_name": "SaveBot",
+        "last_name": "",
+        "username": "izibot",
+        "language_code": "",
+        "is_bot": true
+      },
+      "date": 1595462583,
+      "chat": {
+        "id": 994802022,
+        "type": "private",
+        "title": "",
+        "username": "",
+        "first_name": "Ahmet",
+        "last_name": "Isgenderow",
+        "all_members_are_administrators": false,
+        "photo": null,
+        "pinned_message": null
+      },
+      "text": "Hz. Yusuf Dizisi 1. Bölüm",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "audio (~16.6 MB)",
+              "callback_data": "Link(#)(#)f662fc20-71e7-4672-b82b-d40200920eda"
+            }
+          ],
+          [
+            {
+              "text": "240p (~63.4 MB)⚡️",
+              "callback_data": "Link(#)(#)787628b9-e796-4a7c-9247-a0fe01630e00"
+            }
+          ],
+          [
+            {
+              "text": "360p (~211.9 MB) *Премиум*",
+              "callback_data": "Link(#)(#)b5e53d26-a2ea-4120-9aab-b7d263e22837"
+            }
+          ],
+          [
+            {
+              "text": "480p (~188.5 MB) *Премиум*",
+              "callback_data": "Link(#)(#)35b8dc2b-4311-41e1-8fd7-8c4711499e0b"
+            }
+          ],
+          [
+            {
+              "text": "720p (~312.8 MB) *Премиум*",
+              "callback_data": "Link(#)(#)5e97aeeb-14ec-45e9-a5dc-b8598e204e85"
+            }
+          ]
+        ]
+      }
+    },
+    "inline_message_id": "",
+    "chat_instance": "2456675441021218850",
+    "data": "Link(#)(#)787628b9-e796-4a7c-9247-a0fe01630e00",
+    "game_short_name": ""
+  },
+  "Raw": null
+}

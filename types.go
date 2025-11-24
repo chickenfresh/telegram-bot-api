@@ -476,6 +476,27 @@ type InlineKeyboardMarkup struct {
 	InlineKeyboard [][]InlineKeyboardButton `json:"inline_keyboard"`
 }
 
+// WebAppInfo contains information about a Web App.
+type WebAppInfo struct {
+	URL string `json:"url"` // An HTTPS URL of a Web App to be opened
+}
+
+// LoginURL represents a parameter of the inline keyboard button used to
+// automatically authorize a user.
+type LoginURL struct {
+	URL                string `json:"url"`                            // An HTTPS URL to be opened
+	ForwardText        string `json:"forward_text,omitempty"`         // optional
+	BotUsername        string `json:"bot_username,omitempty"`         // optional
+	RequestWriteAccess bool   `json:"request_write_access,omitempty"` // optional
+}
+
+// MenuButton describes the bot's menu button in a private chat.
+type MenuButton struct {
+	Type   string       `json:"type"`              // Type of the button, must be one of: commands, web_app, default
+	Text   string       `json:"text,omitempty"`    // optional - Text on the button for web_app type
+	WebApp *WebAppInfo  `json:"web_app,omitempty"` // optional - Description of the Web App for web_app type
+}
+
 // InlineKeyboardButton is a button within a custom keyboard for
 // inline query responses.
 //
@@ -487,6 +508,8 @@ type InlineKeyboardButton struct {
 	Text                         string        `json:"text"`
 	URL                          *string       `json:"url,omitempty"`                              // optional
 	CallbackData                 *string       `json:"callback_data,omitempty"`                    // optional
+	WebApp                       *WebAppInfo   `json:"web_app,omitempty"`                          // optional
+	LoginURL                     *LoginURL     `json:"login_url,omitempty"`                        // optional
 	SwitchInlineQuery            *string       `json:"switch_inline_query,omitempty"`              // optional
 	SwitchInlineQueryCurrentChat *string       `json:"switch_inline_query_current_chat,omitempty"` // optional
 	CallbackGame                 *CallbackGame `json:"callback_game,omitempty"`                    // optional

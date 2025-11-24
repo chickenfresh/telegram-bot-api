@@ -1371,3 +1371,31 @@ func (config GetStickerSetConfig) values() (url.Values, error) {
 	v.Add("name", config.Name)
 	return v, nil
 }
+
+// SetChatMenuButtonConfig contains information for setting the bot's menu button.
+type SetChatMenuButtonConfig struct {
+	ChatID     int64       // optional
+	MenuButton *MenuButton // optional
+}
+
+func (config SetChatMenuButtonConfig) method() string {
+	return "setChatMenuButton"
+}
+
+func (config SetChatMenuButtonConfig) values() (url.Values, error) {
+	v := url.Values{}
+
+	if config.ChatID != 0 {
+		v.Add("chat_id", strconv.FormatInt(config.ChatID, 10))
+	}
+
+	if config.MenuButton != nil {
+		data, err := json.Marshal(config.MenuButton)
+		if err != nil {
+			return v, err
+		}
+		v.Add("menu_button", string(data))
+	}
+
+	return v, nil
+}
